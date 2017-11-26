@@ -11,7 +11,10 @@ __email__       = "dq@cs.cmu.edu"
 __website__     = "http://www.davidqiu.com/"
 __copyright__   = "Copyright (C) 2017, David Qiu. All rights reserved."
 
+import csv
 import numpy as np
+import matplotlib.pyplot as plt
+#from mlxtend.* import *
 #from sklearn.* import *
 
 
