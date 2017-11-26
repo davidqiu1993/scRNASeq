@@ -5,6 +5,14 @@ machine learning technology to classify types of cells by looking at the
 single-cell RNA sequence expression activity.
 
 
+## Directory Structures
+
+  * `./data/`: data directory, where all the `.tsv` files should be placed
+  * `./src/`: source code directory, where all source code files should be placed
+  * `./.gitignore`: Git ignore file
+  * `./README.md`: read-me file
+
+
 ## Authorship
 
 Below are the authorship information.
