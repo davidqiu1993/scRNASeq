@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 
 """
-main.py
-Main script for single-cell RNA sequence classfication application.
+run_pca2d.py
+Pincipal components analysis (PCA) example transfering a subset of training 
+input data into two-dimensional principal components.
 """
 
 __version__     = "0.0.1"
@@ -11,6 +12,7 @@ __email__       = "dq@cs.cmu.edu"
 __website__     = "http://www.davidqiu.com/"
 __copyright__   = "Copyright (C) 2017, David Qiu. All rights reserved."
 
+import defs
 import time
 import pandas as pd
 import numpy as np
@@ -18,11 +20,10 @@ import matplotlib.pyplot as plt
 #from mlxtend.* import *
 from sklearn.decomposition import PCA
 
-dir_data = '../data'
-fn_train_covariates = dir_data + '/train_covariates.tsv'
-fn_train_observed_labels = dir_data + '/train_observed_labels.tsv'
-fn_train_experiment_ids = dir_data + '/train_experiment_ids.tsv'
-fn_test_covariates = dir_data + '/test_covariates.tsv'
+fn_train_covariates = defs.fn_train_covariates
+fn_train_observed_labels = defs.fn_train_observed_labels
+fn_train_experiment_ids = defs.fn_train_experiment_ids
+fn_test_covariates = defs.fn_test_covariates
 
 
 def main():
@@ -49,6 +50,10 @@ def main():
   t1 = time.time()
 
   print('runtime = %f sec' % (t1 - t0))
+
+  #pd.DataFrame(X).to_pickle('test_train_covariates_dedim.pkl')
+
+  #print(pd.read_pickle('test_train_covariates_dedim.pkl'))
 
 
   #print(X)
