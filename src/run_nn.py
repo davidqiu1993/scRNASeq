@@ -21,6 +21,8 @@ import matplotlib.pyplot as plt
 #from mlxtend.* import *
 from keras.models import Sequential
 from keras.layers import Dense, Activation
+from keras import regularizers
+from keras.callbacks import EarlyStopping
 
 fn_nn_model_weights = defs.fn_nn_model_weights
 
@@ -70,11 +72,24 @@ def labels2Y(labels, y2label):
 def buildModel(NFeatures, NLabels, summary=True):
   model = Sequential()
 
-  model.add(Dense(output_dim=100, activation='tanh', input_dim=NFeatures))
-  model.add(Dense(output_dim=100, activation='tanh'))
-  model.add(Dense(output_dim=NLabels, activation='softmax'))
+  model.add(Dense(input_dim=NFeatures,
+                  output_dim=100,
+                  activation='relu',
+                  kernel_regularizer=regularizers.l2(0.01)))
+  model.add(Dense(output_dim=64,
+                  activation='relu',
+                  kernel_regularizer=regularizers.l2(0.01)))
+  model.add(Dense(output_dim=64,
+                  activation='relu',
+                  kernel_regularizer=regularizers.l2(0.01)))
+  model.add(Dense(output_dim=64,
+                  activation='relu',
+                  kernel_regularizer=regularizers.l2(0.01)))
+  model.add(Dense(output_dim=NLabels,
+                  activation='softmax',
+                  kernel_regularizer=regularizers.l2(0.00)))
   
-  model.compile(optimizer='adam',
+  model.compile(optimizer='sgd', #'adam',
                 loss='categorical_crossentropy',
                 metrics=['accuracy'])
 
@@ -112,12 +127,15 @@ def main():
   # train model and save weights
   if (not os.path.isfile(fn_nn_model_weights)) or SHOULD_TRAIN_MODEL:
     print('train model...')
+    early_stopping = EarlyStopping(monitor='val_loss', patience=5)
+
     history = model.fit(X_train, Y_train,
-                        batch_size=64,
-                        nb_epoch=100,
+                        batch_size=256,
+                        epochs=100,
                         verbose=1,
-                        validation_data=(X_valid, Y_valid),
-                        shuffle=True)
+                        shuffle=True,
+                        callbacks=[early_stopping],
+                        validation_data=(X_valid, Y_valid))
 
     his_acc = history.history['acc']
     his_loss = history.history['loss']
