@@ -26,7 +26,7 @@ from keras.callbacks import EarlyStopping
 
 fn_nn_model_weights = defs.fn_nn_model_weights
 
-SHOULD_TRAIN_MODEL = True
+SHOULD_TRAIN_MODEL = False
 
 
 def Y2onehots(Y, NLabels):
