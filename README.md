@@ -9,6 +9,7 @@ single-cell RNA sequence expression activity.
 
   * `./data/`: data directory, where all the `.tsv` files should be placed
   * `./src/`: source code directory, where all source code files should be placed
+  * `./docs/`: document directory, where related documents should be placed
   * `./.gitignore`: Git ignore file
   * `./README.md`: read-me file
 
