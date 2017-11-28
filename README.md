@@ -8,6 +8,7 @@ single-cell RNA sequence expression activity.
 ## Directory Structures
 
   * `./data/`: data directory, where all the `.tsv` files should be placed
+    - datasets are available here: [https://drive.google.com/drive/folders/1XGMXW1UD4SQhAArzontqD_1qtk67P6W_?usp=sharing](https://drive.google.com/drive/folders/1XGMXW1UD4SQhAArzontqD_1qtk67P6W_?usp=sharing)
   * `./src/`: source code directory, where all source code files should be placed
   * `./docs/`: document directory, where related documents should be placed
   * `./.gitignore`: Git ignore file
