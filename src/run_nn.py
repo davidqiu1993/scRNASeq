@@ -25,8 +25,10 @@ from keras import regularizers
 from keras.callbacks import EarlyStopping
 
 fn_nn_model_weights = defs.fn_nn_model_weights
+fn_test_predicted_labels = defs.fn_test_predicted_labels
 
 SHOULD_TRAIN_MODEL = False
+SHOULD_OUTPUT_TEST_LABELS = True
 
 
 def Y2onehots(Y, NLabels):
@@ -55,7 +57,7 @@ def onehots2Y(Y_oh, NLabels):
 def Y2labels(Y, y2label):
   labels = []
   for i in range(Y.shape[0]):
-    labels.append([y2label[Y[i]]])
+    labels.append([y2label[int(Y[i])]])
 
   return np.array(labels)
 
@@ -180,6 +182,20 @@ def main():
   maxClassTrainPercentage = np.max(np.sum(Y_train,axis=0))/np.sum(Y_train)
   print('  - maxClassTrainPercentage: %f' % maxClassTrainPercentage)
   print('  - maxClassValidPercentage: %f' % maxClassValidPercentage)
+
+  # output predicted test labels
+  if SHOULD_OUTPUT_TEST_LABELS:
+    print('predict and output test labels...')
+    pred_Test = model.predict_classes(X_test, verbose=0)
+    pred_Test = np.array(pred_Test).reshape((len(pred_Test),1))
+    print('  - class predictions generated: %d' % (pred_Test.shape[0]))
+    pred_labels = Y2labels(pred_Test, y2label)
+    print('  - labels converted: %d' % (pred_labels.shape[0]))
+
+    with open(fn_test_predicted_labels, 'w') as f_test_labels:
+      f_test_labels.write('"Cell Type"\n')
+      for i in range(pred_labels.shape[0]):
+        f_test_labels.write('"%s"\n' % (str(pred_labels[i,0])))
 
 
 if __name__ == '__main__':
