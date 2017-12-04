@@ -37,6 +37,8 @@ def main():
     df_reader = pd.read_table(tsv, chunksize=chunksize)
     for df in df_reader:
       pca = PCA(n_components=2)
+      print('rows: %d' % len(df.index))
+      print('original dimensions: %d' % len(df.columns))
       pca.fit(df)
       X = pca.transform(df)
       break
